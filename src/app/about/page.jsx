@@ -9,7 +9,7 @@ export const metadata = {
   };
 
   const getTime = async () => {
-    const res = await fetch('http://localhost:3000/time', {cache: 'no-store'} );
+    const res = await fetch('http://localhost:3000/time', );
     const data = await res.json()
     return data.currentTime;
   }
