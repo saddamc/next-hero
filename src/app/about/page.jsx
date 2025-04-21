@@ -11,7 +11,7 @@ export const metadata = {
   };
 
   const getTime = async () => {
-    const res = await fetch('http://localhost:3000/time', );
+    const res = await fetch(process.env.NEXT_PUBLIC_TIME);
     const data = await res.json()
     return data.currentTime;
   }
