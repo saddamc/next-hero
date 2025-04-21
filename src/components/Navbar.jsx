@@ -1,4 +1,5 @@
 "use client";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -8,6 +9,8 @@ const Navbar = () => {
   const router = useRouter();
   const [openMenu, setOpenMenu] = useState(null); // Track which menu is open
   const [closeTimeout, setCloseTimeout] = useState(null); // Track timeout for closing
+  const session = useSession();
+  console.log(session)
 
   const links = [
     {
@@ -89,9 +92,8 @@ const Navbar = () => {
             onMouseOut={handleMouseOut}
           >
             <Link
-              className={`${
-                pathName === link.path && "text-cyan-300 font-bold"
-              }`}
+              className={`${pathName === link.path && "text-cyan-300 font-bold"
+                }`}
               href={link.path}
             >
               {link.title}
@@ -111,12 +113,15 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
-      <button
-        onClick={handler}
-        className="bg-white text-cyan-400 p-4 cursor-pointer rounded-xl text-xl"
-      >
-        Login
-      </button>
+      {session.status === "authenticated" ?
+        <Link href={"api/auth/signin"}><button
+          onClick={handler}
+          className="bg-white text-cyan-400 p-4 cursor-pointer rounded-xl text-xl">
+          Login
+        </button></Link>
+        : 
+        <button className="bg-white text-cyan-400 p-4 cursor-pointer rounded-xl text-xl">Logout</button>
+      }
     </nav>
   );
 };

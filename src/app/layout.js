@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import AuthProvider from "@/services/AuthProvider";
 import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head />
+      <AuthProvider>
       <body
       // font setup
       className={roboto.className}
@@ -40,7 +42,7 @@ export default function RootLayout({ children }) {
       >
         <Navbar />
         
-        {children}
+        <div>{children}</div>
         {/* Footer Section */}
         <div className="my-24">
           <footer className="bg-blue-400 font-semibold text-center py-4">
@@ -49,6 +51,7 @@ export default function RootLayout({ children }) {
         </div>
 
       </body>
+      </AuthProvider>
     </html>
   );
 }
